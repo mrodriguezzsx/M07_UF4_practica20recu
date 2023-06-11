@@ -35,3 +35,8 @@ def updateDeleteProducto(request, pk):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
+    
+    elif request.method == 'DELETE':
+        producto = Producto.objects.filter(id = pk).first()
+        producto.delete()
+        return Response('Producto Eliminado')
