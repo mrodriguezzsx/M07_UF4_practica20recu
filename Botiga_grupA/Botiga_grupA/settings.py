@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'cataleg',
     'carreto',
     'comandes',
-    'pagaments'.
-    'rest_framework'
+    'pagaments',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
