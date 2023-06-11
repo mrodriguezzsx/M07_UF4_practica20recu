@@ -4,18 +4,9 @@ from .models import Producto
 from .serializers import ProductoSerializer
 
 # Create your views here.
-@api_view(['GET', 'POST'])
-def getPostProducte(request):
-    if request.method == 'GET':
+@api_view(['GET'])
+def verProductos(request):
         # Apartat per gestionar l'apartat del GET
-        queryset = TuModelo.objects.all()
-        serializer = TuModeloSerializer(queryset, many=True)
+        queryset = Producto.objects.all()
+        serializer = ProductoSerializer(queryset, many=True)
         return Response(serializer.data)
-        
-    elif request.method == 'POST':
-        # Apartat per gestionar l'apartat del Post
-        serializer = TuModeloSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
