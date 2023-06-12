@@ -4,18 +4,23 @@ from .models import Pago
 from .serializers import PagoSerializer
 
 # Create your views here.
+# Funcio per Validar les targetes ja creades.
 @api_view(['POST'])
 def validarTarjeta(request):
-    # Obtén los datos del formulario (número de tarjeta, etc.)
+    # Obte les dades del "formulari" (numero de targeta, etc.)
     numTarjeta = request.data.get('numTarjeta', '')
     fechaCaducidad = request.data.get('fechaCaducidad', '')
     cvc = request.data.get('cvc', '')
 
-    # Realiza la comparación con la base de datos
+    # Realitza la comparacio amb la base de dades
     try:
+        # Agafa el numero de targeta
         tarjeta = Pago.objects.get(numTarjeta=numTarjeta)
+
+        # Pasa el numero de targeta per la BBDD
         serializer = PagoSerializer(tarjeta)
-        # Compara los campos de la tarjeta con los datos de la solicitud
+
+        # Compara els camps de la targeta amb les dades de la sol·licitud
         if serializer.data['fechaCaducidad'] == fechaCaducidad and serializer.data['cvc'] == cvc:
             mensaje = "¡Los datos de la tarjeta coinciden!"
         else:
@@ -25,6 +30,8 @@ def validarTarjeta(request):
 
     return Response({'mensaje': mensaje})
 
+# Funcio extra(Per ajudar a posar les dades)
+# Funcio que Llista les targetes ja creades + Crear targetes noves
 @api_view(['GET','POST'])
 def obtenerTarjeta(request):
     if request.method == 'GET':

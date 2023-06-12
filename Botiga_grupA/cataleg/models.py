@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-# Tabla Producto para la BBDD
+# Tabla Producto para la BBDD, Se tendria que llamar Cataleg.
 class Producto(models.Model):
     marca = models.CharField(max_length=50)
     modelo = models.CharField(max_length=50)
